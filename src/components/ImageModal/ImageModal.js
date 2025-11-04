@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './ImageModal.module.css';
 
 const ImageModal = ({ image, isOpen, onClose }) => {
@@ -51,6 +52,9 @@ const ImageModal = ({ image, isOpen, onClose }) => {
           className={styles.image}
         />
       </div>
+      <Link href={`/chat/${image.id}`} className={styles.chatButton}>
+        💬 Chat with this Rabbit
+      </Link>
     </div>
   );
 };
