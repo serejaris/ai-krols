@@ -1,7 +1,9 @@
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
+import Image from 'next/image';
 import ChatBot from '@/components/ChatBot/ChatBot';
+import { getImagePath } from '@/utils/constants';
 import styles from './page.module.css';
 
 export default function ChatPage() {
@@ -19,10 +21,21 @@ export default function ChatPage() {
         <button onClick={handleBack} className={styles.backButton}>
           ← Back
         </button>
-        <h1 className={styles.title}>Chat with Rabbit #{rabbitId}</h1>
       </div>
-      <div className={styles.chatWrapper}>
-        <ChatBot rabbitId={rabbitId} fullPage={true} />
+      <div className={styles.contentWrapper}>
+        <div className={styles.imageSection}>
+          <Image
+            src={getImagePath(rabbitId)}
+            alt={`Rabbit #${rabbitId}`}
+            width={500}
+            height={500}
+            className={styles.rabbitImage}
+            priority
+          />
+        </div>
+        <div className={styles.chatSection}>
+          <ChatBot rabbitId={rabbitId} fullPage={true} />
+        </div>
       </div>
     </div>
   );
