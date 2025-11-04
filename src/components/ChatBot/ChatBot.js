@@ -64,7 +64,7 @@ const ChatBot = ({ rabbitId, fullPage = false }) => {
         <div className={styles.messagesContainer}>
           {messages.length === 0 && (
             <div className={styles.emptyState}>
-              <p>👋 Hi! I'm Rabbit #{rabbitId}!</p>
+              <p>👋 Hi! I&apos;m Rabbit #{rabbitId}!</p>
               <p>Ask me anything!</p>
             </div>
           )}
@@ -129,7 +129,7 @@ const ChatBot = ({ rabbitId, fullPage = false }) => {
           <div className={styles.messagesContainer}>
             {messages.length === 0 && (
               <div className={styles.emptyState}>
-                <p>👋 Hi! I'm Rabbit #{rabbitId}!</p>
+                <p>👋 Hi! I&apos;m Rabbit #{rabbitId}!</p>
                 <p>Ask me anything!</p>
               </div>
             )}

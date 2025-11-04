@@ -1,10 +1,6 @@
 import OpenAI from 'openai';
 import { NextResponse } from 'next/server';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export async function POST(request) {
   try {
     const { messages, rabbitId } = await request.json();
@@ -15,6 +11,10 @@ export async function POST(request) {
         { status: 500 }
       );
     }
+
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
 
     const systemMessage = {
       role: 'system',
