@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import styles from './ChatBot.module.css';
 
-const ChatBot = ({ rabbitId }) => {
+const ChatBot = ({ rabbitId, fullPage = false }) => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -57,6 +57,59 @@ const ChatBot = ({ rabbitId }) => {
     }
   };
 
+  // Full page mode - render chat box directly without toggle
+  if (fullPage) {
+    return (
+      <div className={styles.chatBoxFullPage}>
+        <div className={styles.messagesContainer}>
+          {messages.length === 0 && (
+            <div className={styles.emptyState}>
+              <p>👋 Hi! I'm Rabbit #{rabbitId}!</p>
+              <p>Ask me anything!</p>
+            </div>
+          )}
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`${styles.message} ${styles[msg.role]}`}
+            >
+              <div className={styles.messageContent}>
+                {msg.content}
+              </div>
+            </div>
+          ))}
+          {isLoading && (
+            <div className={`${styles.message} ${styles.assistant}`}>
+              <div className={styles.messageContent}>
+                <span className={styles.typing}>Typing...</span>
+              </div>
+            </div>
+          )}
+          <div ref={messagesEndRef} />
+        </div>
+
+        <form onSubmit={sendMessage} className={styles.inputForm}>
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type a message..."
+            className={styles.input}
+            disabled={isLoading}
+          />
+          <button
+            type="submit"
+            className={styles.sendButton}
+            disabled={isLoading || !input.trim()}
+          >
+            Send
+          </button>
+        </form>
+      </div>
+    );
+  }
+
+  // Floating mode - original behavior with toggle button
   return (
     <div className={styles.chatContainer}>
       <button

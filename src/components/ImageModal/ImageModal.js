@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
-import ChatBot from '@/components/ChatBot/ChatBot';
+import Link from 'next/link';
 import styles from './ImageModal.module.css';
 
 const ImageModal = ({ image, isOpen, onClose }) => {
@@ -52,8 +52,9 @@ const ImageModal = ({ image, isOpen, onClose }) => {
           className={styles.image}
         />
       </div>
-      {/* ChatBot component for this rabbit */}
-      <ChatBot rabbitId={image.id} />
+      <Link href={`/chat/${image.id}`} className={styles.chatButton}>
+        💬 Chat with this Rabbit
+      </Link>
     </div>
   );
 };
