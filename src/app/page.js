@@ -8,6 +8,7 @@ import { generateImageData } from '@/utils/imageData';
 
 export default function Home() {
   const [images, setImages] = useState([]);
+  const [mints, setMints] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -24,7 +25,17 @@ export default function Home() {
       setError('Failed to load image data');
       setLoading(false);
     }
+
+    // Mint state is shared across visitors via the API
+    fetch('/api/mint')
+      .then((res) => res.json())
+      .then((data) => setMints(data.mints || {}))
+      .catch(() => {});
   }, []);
+
+  const handleMinted = (mint) => {
+    setMints((prev) => ({ ...prev, [mint.id]: mint }));
+  };
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -69,11 +80,13 @@ export default function Home() {
   return (
     <ErrorBoundary>
       <div className="container">
-        <ImageGrid images={images} onImageClick={handleImageClick} />
-        <ImageModal 
+        <ImageGrid images={images} mints={mints} onImageClick={handleImageClick} />
+        <ImageModal
           image={selectedImage}
           isOpen={isModalOpen}
           onClose={handleModalClose}
+          mint={selectedImage ? mints[selectedImage.id] : null}
+          onMinted={handleMinted}
         />
       </div>
     </ErrorBoundary>

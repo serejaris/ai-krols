@@ -1,4 +1,5 @@
-import { getRandomPsychTerm, getImagePath } from './constants.js';
+import { getImagePath } from './constants.js';
+import { getPersonality } from './personality.js';
 
 // List of actual image IDs that exist (based on the files in public/img)
 const EXISTING_IMAGE_IDS = [
@@ -11,11 +12,13 @@ export const generateImageData = () => {
   
   // Generate data only for images that actually exist
   EXISTING_IMAGE_IDS.forEach(id => {
+    const personality = getPersonality(id);
     images.push({
       id: id,
       src: getImagePath(id),
       alt: `Image ${id}`,
-      psychTerm: getRandomPsychTerm()
+      psychTerm: personality.psychTerm,
+      personality
     });
   });
   

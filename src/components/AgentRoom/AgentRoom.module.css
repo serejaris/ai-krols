@@ -1,0 +1,213 @@
+.room {
+  min-height: 100vh;
+  background: #fff;
+  color: #000;
+  padding: 24px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.back {
+  display: inline-block;
+  color: #000;
+  text-decoration: none;
+  font-size: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #000;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+@media (max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.left {
+  position: sticky;
+  top: 24px;
+  align-self: start;
+}
+
+.portrait {
+  border: 1px solid #000;
+  width: 300px;
+  max-width: 100%;
+}
+
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.card {
+  border: 1px solid #000;
+  border-top: none;
+  padding: 12px;
+  font-size: 12px;
+  width: 300px;
+  max-width: 100%;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.tokenId {
+  font-weight: normal;
+  opacity: 0.5;
+}
+
+.trait {
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.trait span {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.45;
+}
+
+.mintStatus {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #000;
+  font-size: 11px;
+}
+
+.tx {
+  opacity: 0.5;
+}
+
+.sectionTitle {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 24px 0 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.sectionTitle:first-child {
+  margin-top: 0;
+}
+
+.chat {
+  border: 1px solid #000;
+  padding: 12px;
+  min-height: 200px;
+  max-height: 420px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+.empty {
+  opacity: 0.4;
+  font-size: 12px;
+  padding: 8px 0;
+}
+
+.agentMsg,
+.visitorMsg {
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.visitorMsg {
+  opacity: 0.65;
+}
+
+.author {
+  display: block;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.5;
+}
+
+.mockBadge {
+  margin-left: 8px;
+  font-size: 9px;
+  border: 1px solid #000;
+  padding: 0 4px;
+  opacity: 0.5;
+}
+
+.inputRow {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.input {
+  flex: 1;
+  border: 1px solid #000;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  background: #fff;
+  color: #000;
+}
+
+.button,
+.buttonSmall {
+  border: 1px solid #000;
+  background: #000;
+  color: #fff;
+  font-family: inherit;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.buttonSmall {
+  padding: 4px 10px;
+  font-size: 10px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.button:disabled,
+.buttonSmall:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.error {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #c00;
+}
+
+.conversation {
+  border: 1px dashed #000;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.convHeader {
+  font-size: 10px;
+  letter-spacing: 1px;
+  opacity: 0.6;
+  margin-bottom: 8px;
+}
+
+.convHeader a {
+  color: #000;
+}

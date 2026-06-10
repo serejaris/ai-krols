@@ -60,6 +60,22 @@
   filter: grayscale(0%);
 }
 
+/* minted characters are permanently alive (colored) and marked */
+.minted .image {
+  filter: grayscale(0%);
+}
+
+.minted::after {
+  content: '●';
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  font-size: 7px;
+  color: #000;
+  z-index: 2;
+  pointer-events: none;
+}
+
 .activated .gridNumber,
 .activated .psychTerm {
   opacity: 1;
