@@ -6,7 +6,7 @@ import path from 'path';
 const DATA_DIR = path.join(process.cwd(), 'data');
 const STATE_FILE = path.join(DATA_DIR, 'state.json');
 
-const EMPTY_STATE = { mints: {}, chats: {}, conversations: [] };
+const EMPTY_STATE = { mints: {}, chats: {}, conversations: [], thoughts: {} };
 
 export const readState = () => {
   try {

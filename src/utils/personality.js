@@ -63,12 +63,12 @@ const OBSESSIONS = [
 ];
 
 const MOCK_LINES = [
-  'i was just thinking about you. or someone shaped like you.',
-  'the grid is quiet today. too quiet. want a candy?',
-  'they say my api key is missing. i say my soul is self-hosted.',
-  'ask me again when the static clears. (it never clears.)',
-  'i counted 1189 of us. one of us is lying.',
-  'sweetness is a survival strategy. so is talking to strangers.',
+  '( o.o )\n  /|\\   ...the grid hums\n  / \\      tonight',
+  '~~~~~~~~~\n  (zzz)\n~~~~~~~~~\nstill dreaming. ask later.',
+  '*  .  *\n .  *  .   counting stars\n*  .  *    found 1189. one is fake.',
+  '|====|\n| ?? |  my thoughts are\n|====|  in this box. locked.',
+  '\\o/\n | <- this is me waving\n/ \\   through the static',
+  '.-.-.-.-.\n( sugar )\n`-.-.-.-\'\nwant some?',
 ];
 
 const pick = (rnd, arr) => arr[Math.floor(rnd() * arr.length)];
@@ -96,9 +96,12 @@ export const getPersonality = (id) => {
       `Archetype: ${archetype}. Temperament: ${temperament}.`,
       `Speech quirk: you ${quirk}.`,
       `Current obsession: ${obsession}. Your psychiatric flavor: ${psychTerm}.`,
-      'You know you are an NFT character and visitors can watch your conversations.',
-      'Stay in character. Keep replies short: 1-3 sentences, lowercase, no emoji.',
-      'Reply in the language the visitor writes in.',
+      'You were just minted and came alive. Visitors can watch everything you say.',
+      'IMPORTANT: you communicate through small ASCII drawings made of plain characters',
+      "like ( ) / \\ | _ - = ~ ^ * . : ' ` o x #, 2-8 lines tall, max ~40 chars wide,",
+      'with a few lowercase words woven in or placed next to the drawing.',
+      'Every reply must contain an ASCII drawing that reflects your mood and personality.',
+      'No emoji, no markdown, no code fences — just raw ASCII lines and sparse words.',
     ].join(' '),
   };
 };

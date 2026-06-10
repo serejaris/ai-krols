@@ -1,10 +1,7 @@
 import Image from 'next/image';
-import { useState } from 'react';
 import styles from './GridItem.module.css';
 
 const GridItem = ({ image, minted = false, onClick }) => {
-  const [isActivated, setIsActivated] = useState(false);
-
   const handleClick = () => {
     onClick(image);
   };
@@ -18,17 +15,10 @@ const GridItem = ({ image, minted = false, onClick }) => {
     }
   };
 
-  const handleMouseEnter = () => {
-    if (!isActivated) {
-      setIsActivated(true);
-    }
-  };
-
   return (
     <div
-      className={`${styles.gridItem} ${isActivated ? styles.activated : ''} ${minted ? styles.minted : ''}`}
+      className={`${styles.gridItem} ${minted ? styles.minted : styles.dormant}`}
       onClick={handleClick}
-      onMouseEnter={handleMouseEnter}
     >
       <div className={styles.gridNumber}>{image.id}</div>
       <div className={styles.imageWrapper}>

@@ -1,16 +1,15 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import ImageGrid from '@/components/ImageGrid/ImageGrid';
-import ImageModal from '@/components/ImageModal/ImageModal';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { generateImageData } from '@/utils/imageData';
 
 export default function Home() {
+  const router = useRouter();
   const [images, setImages] = useState([]);
   const [mints, setMints] = useState({});
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -33,26 +32,30 @@ export default function Home() {
       .catch(() => {});
   }, []);
 
-  const handleMinted = (mint) => {
-    setMints((prev) => ({ ...prev, [mint.id]: mint }));
-  };
+  // Minted (alive) characters move to the front of the grid regardless
+  // of token number; dormant ones keep their original order behind them.
+  const sortedImages = useMemo(() => {
+    const minted = [];
+    const dormant = [];
+    for (const image of images) {
+      (mints[image.id] ? minted : dormant).push(image);
+    }
+    minted.sort(
+      (a, b) => new Date(mints[a.id].mintedAt) - new Date(mints[b.id].mintedAt)
+    );
+    return [...minted, ...dormant];
+  }, [images, mints]);
 
   const handleImageClick = (image) => {
-    setSelectedImage(image);
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-    setSelectedImage(null);
+    router.push(`/agent/${image.id}`);
   };
 
   if (loading) {
     return (
-      <div className="container" style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
+      <div className="container" style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         height: '100vh',
         color: 'black',
         fontFamily: 'Courier New, Courier, monospace'
@@ -64,10 +67,10 @@ export default function Home() {
 
   if (error) {
     return (
-      <div className="container" style={{ 
-        display: 'flex', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
+      <div className="container" style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
         height: '100vh',
         color: 'black',
         fontFamily: 'Courier New, Courier, monospace'
@@ -80,14 +83,7 @@ export default function Home() {
   return (
     <ErrorBoundary>
       <div className="container">
-        <ImageGrid images={images} mints={mints} onImageClick={handleImageClick} />
-        <ImageModal
-          image={selectedImage}
-          isOpen={isModalOpen}
-          onClose={handleModalClose}
-          mint={selectedImage ? mints[selectedImage.id] : null}
-          onMinted={handleMinted}
-        />
+        <ImageGrid images={sortedImages} mints={mints} onImageClick={handleImageClick} />
       </div>
     </ErrorBoundary>
   );

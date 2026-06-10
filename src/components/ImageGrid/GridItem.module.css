@@ -28,7 +28,6 @@
   left: 1px;
   font-size: 6px;
   color: black;
-  opacity: 0.7;
   z-index: 2;
   pointer-events: none;
   line-height: 1;
@@ -46,23 +45,34 @@
 .image {
   object-fit: contain;
   transform: translateZ(0);
+}
+
+/* dormant (not minted): concealed — black & white and dimmed.
+   hover reveals presence but never color: only minting wakes them up */
+.dormant .image {
   filter: grayscale(100%);
-  transition: none;
+  opacity: 0.35;
+  transition: opacity 120ms ease-out;
 }
 
-.gridItem:hover .image {
-  filter: grayscale(0%);
-  transition: none;
+.dormant:hover .image {
+  opacity: 0.8;
 }
 
-/* persistent activation after first hover */
-.activated .image {
-  filter: grayscale(0%);
+.dormant:hover .gridNumber,
+.dormant:hover .psychTerm {
+  opacity: 0.6;
 }
 
-/* minted characters are permanently alive (colored) and marked */
+/* minted: permanently alive — full color, labeled */
 .minted .image {
   filter: grayscale(0%);
+  opacity: 1;
+}
+
+.minted .gridNumber,
+.minted .psychTerm {
+  opacity: 1;
 }
 
 .minted::after {
@@ -76,11 +86,6 @@
   pointer-events: none;
 }
 
-.activated .gridNumber,
-.activated .psychTerm {
-  opacity: 1;
-}
-
 /* slightly enlarge the effective hover area around each tile */
 .gridItem::before {
   content: '';
@@ -92,11 +97,3 @@
   background: transparent;
   z-index: 1;
 }
-
-.gridItem:hover .gridNumber,
-.gridItem:hover .psychTerm {
-  opacity: 1;
-}
-
-/* Move the scale transform to the wrapper to avoid re-filtering layers */
-/* removed image scaling on hover */
