@@ -10,9 +10,13 @@ export const getRandomPsychTerm = () => {
   return PSYCH_TERMS[Math.floor(Math.random() * PSYCH_TERMS.length)];
 };
 
-// Helper function to construct image path
+// Helper function to construct image path.
+// NEXT_PUBLIC_IMG_BASE lets deployments serve art from a CDN
+// instead of bundling 1.5GB of PNGs into the build.
+const IMG_BASE = process.env.NEXT_PUBLIC_IMG_BASE || '';
+
 export const getImagePath = (imageId) => {
-  return `/img/${imageId}.png`;
+  return `${IMG_BASE}/img/${imageId}.png`;
 };
 
 // Total number of images (based on the original implementation)
