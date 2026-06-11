@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import styles from './GridItem.module.css';
 
 const GridItem = ({ image, minted = false, onClick }) => {
@@ -22,13 +21,13 @@ const GridItem = ({ image, minted = false, onClick }) => {
     >
       <div className={styles.gridNumber}>{image.id}</div>
       <div className={styles.imageWrapper}>
-        <Image
-          src={image.src}
+        {/* plain <img>: 1189 tiles through the next/image optimizer
+            is exactly what made the grid crawl */}
+        <img
+          src={image.thumbSrc}
           alt={image.alt}
-          fill
-          sizes="(max-width: 768px) 10px, (max-width: 1200px) 50px, 50px"
-          quality={60}
           loading="lazy"
+          decoding="async"
           onError={handleImageError}
           className={styles.image}
         />

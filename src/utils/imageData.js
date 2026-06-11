@@ -16,6 +16,8 @@ export const generateImageData = () => {
     images.push({
       id: id,
       src: getImagePath(id),
+      // static pre-generated webp, served directly — never hits the optimizer
+      thumbSrc: `/thumbs/${id}.webp`,
       alt: `Image ${id}`,
       psychTerm: personality.psychTerm,
       personality
