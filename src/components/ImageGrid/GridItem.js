@@ -1,39 +1,31 @@
+import Link from 'next/link';
 import styles from './GridItem.module.css';
 
-const GridItem = ({ image, minted = false, onClick }) => {
-  const handleClick = () => {
-    onClick(image);
-  };
-
-  const handleImageError = (e) => {
-    // Handle missing images gracefully
-    console.log(`Image ${image.id} failed to load`);
-    // Hide the broken image by setting display to none
-    if (e.target) {
-      e.target.style.display = 'none';
-    }
-  };
-
+// Server component on purpose: a plain <Link> instead of onClick means
+// none of the 1189 tiles ship hydration JS. prefetch={false} — otherwise
+// the viewport would trigger hundreds of /agent/[id] prefetches.
+const GridItem = ({ image, minted = false, eager = false }) => {
   return (
-    <div
+    <Link
+      href={`/agent/${image.id}`}
+      prefetch={false}
       className={`${styles.gridItem} ${minted ? styles.minted : styles.dormant}`}
-      onClick={handleClick}
     >
       <div className={styles.gridNumber}>{image.id}</div>
       <div className={styles.imageWrapper}>
-        {/* plain <img>: 1189 tiles through the next/image optimizer
-            is exactly what made the grid crawl */}
         <img
           src={image.thumbSrc}
           alt={image.alt}
-          loading="lazy"
+          width={256}
+          height={256}
+          loading={eager ? 'eager' : 'lazy'}
+          fetchPriority={eager ? 'high' : 'auto'}
           decoding="async"
-          onError={handleImageError}
           className={styles.image}
         />
       </div>
       <div className={styles.psychTerm}>{image.psychTerm}</div>
-    </div>
+    </Link>
   );
 };
 

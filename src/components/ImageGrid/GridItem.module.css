@@ -2,8 +2,12 @@
   aspect-ratio: 1/1;
   overflow: hidden;
   position: relative;
+  display: block;
   background-color: #fff;
   cursor: pointer;
+  /* native virtualization: skip layout/paint for off-screen tiles */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 120px;
 }
 
 .gridNumber {
@@ -86,16 +90,4 @@
   color: #000;
   z-index: 2;
   pointer-events: none;
-}
-
-/* slightly enlarge the effective hover area around each tile */
-.gridItem::before {
-  content: '';
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  bottom: -4px;
-  left: -4px;
-  background: transparent;
-  z-index: 1;
 }

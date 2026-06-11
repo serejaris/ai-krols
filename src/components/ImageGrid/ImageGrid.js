@@ -1,15 +1,19 @@
 import GridItem from './GridItem';
 import styles from './ImageGrid.module.css';
 
-const ImageGrid = ({ images, mints = {}, onImageClick }) => {
+// First viewport row(s): fetched eagerly with high priority.
+// Desktop at ~1200px renders ~24 columns, so 48 covers two rows.
+const EAGER_COUNT = 48;
+
+const ImageGrid = ({ images, mints = {} }) => {
   return (
     <div className={styles.gridView}>
-      {images.map((image) => (
+      {images.map((image, index) => (
         <GridItem
           key={image.id}
           image={image}
           minted={Boolean(mints[image.id])}
-          onClick={onImageClick}
+          eager={index < EAGER_COUNT}
         />
       ))}
     </div>

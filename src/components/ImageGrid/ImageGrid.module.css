@@ -5,6 +5,11 @@
   padding: 10px;
 }
 
+/* above-the-fold tiles render immediately — no content-visibility deferral */
+.gridView > :nth-child(-n+48) {
+  content-visibility: visible;
+}
+
 /* Tablet breakpoint */
 @media (min-width: 768px) {
   .gridView {
