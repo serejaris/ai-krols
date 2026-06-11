@@ -1,4 +1,5 @@
 import ImageGrid from '@/components/ImageGrid/ImageGrid';
+import GridPreloader from '@/components/GridPreloader/GridPreloader';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import { generateImageData } from '@/utils/imageData';
 import { readState } from '@/lib/store';
@@ -25,6 +26,7 @@ export default function Home() {
   return (
     <ErrorBoundary>
       <div className="container">
+        <GridPreloader />
         <ImageGrid images={[...minted, ...dormant]} mints={mints} />
       </div>
     </ErrorBoundary>

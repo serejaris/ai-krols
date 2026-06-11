@@ -1,0 +1,57 @@
+.curtain {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 600ms ease-out;
+}
+
+.leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.inner {
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  color: #000;
+}
+
+.glyphGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 22px);
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 18px;
+}
+
+.glyph {
+  font-size: 18px;
+  line-height: 1;
+  animation: flicker 1.1s infinite;
+}
+
+.glyph:nth-child(4n + 1) { animation-delay: 0ms; }
+.glyph:nth-child(4n + 2) { animation-delay: 180ms; }
+.glyph:nth-child(4n + 3) { animation-delay: 360ms; }
+.glyph:nth-child(4n + 4) { animation-delay: 540ms; }
+.glyph:nth-child(odd)    { animation-duration: 1.4s; }
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
+}
+
+.caption {
+  font-size: 11px;
+  letter-spacing: 1px;
+  animation: pulse 1.2s step-end infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: 0.5; }
+}
