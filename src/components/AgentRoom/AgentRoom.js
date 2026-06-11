@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Curtain from '@/components/Curtain/Curtain';
 import styles from './AgentRoom.module.css';
 
 const THINK_POLL_MS = 12_000;
@@ -39,6 +40,7 @@ const AgentRoom = ({ personality, imageSrc }) => {
   const [conversing, setConversing] = useState(false);
   const [error, setError] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [portraitReady, setPortraitReady] = useState(false);
   const chatEndRef = useRef(null);
 
   const { id, name, archetype, temperament, quirk, obsession, psychTerm } = personality;
@@ -160,12 +162,25 @@ const AgentRoom = ({ personality, imageSrc }) => {
 
   return (
     <div className={styles.room}>
+      <Curtain
+        ready={loaded && portraitReady}
+        caption={`summoning ${name.split(' ')[0].toLowerCase()} #${id}…`}
+      />
       <Link href="/" className={styles.back}>← back to grid</Link>
 
       <div className={styles.layout}>
         <div className={styles.left}>
           <div className={`${styles.portrait} ${alive ? '' : styles.dormantPortrait}`}>
-            <Image src={imageSrc} alt={name} width={300} height={300} quality={90} />
+            <Image
+              src={imageSrc}
+              alt={name}
+              width={300}
+              height={300}
+              quality={90}
+              priority
+              onLoad={() => setPortraitReady(true)}
+              onError={() => setPortraitReady(true)}
+            />
           </div>
           <div className={styles.card}>
             <div className={styles.cardTitle}>{name} <span className={styles.tokenId}>#{id}</span></div>
